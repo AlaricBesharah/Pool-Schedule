@@ -6,14 +6,13 @@
 package poolschedulegui;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
- *
+ * 
  * @author Alaric
  */
 public class ScheduleModel {
@@ -47,14 +46,11 @@ public class ScheduleModel {
     
     // Takes the information from a properly formatted txt file
     // and adds it to the right day.
-    public void populate(String fileName) throws IOException{
+    public void populate(String fileName) throws FileNotFoundException {
         
         int day = stringToDay(fileName);
-        try (BufferedReader reader = new BufferedReader(
-            new InputStreamReader(
-                ScheduleModel.class.getResourceAsStream(fileName),
-                StandardCharsets.UTF_8))) {}
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+        InputStream in = getClass().getResourceAsStream(fileName); 
+        try (BufferedReader br = new BufferedReader(new FileReader("textfiles/" + fileName))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] splited = line.split("\\s+");
@@ -74,36 +70,28 @@ public class ScheduleModel {
         }
     }
     
-    // Takes all acceptable file names and 
-    // returns the corresponding integer [0-6]
     static public int stringToDay(String name){
-        try{
-            switch (name) {
-                case "sunday.txt":
-                    return 0;
-                case "monday.txt":
-                    return 1;
-                case "tuesday.txt":
-                    return 2;
-                case "wednesday.txt":
-                    return 3;
-                case "thursday.txt":
-                    return 4;
-                case "friday.txt":
-                    return 5;
-                case "saturday.txt":
-                    return 6;
-            }
-        }catch(Exception e){
-            System.out.println(name + " is not a valid file name.");
+        
+        switch (name) {
+            case "sunday.txt":    case "Sunday":
+                return 0;
+            case "monday.txt":    case "Monday":
+                return 1;
+            case "tuesday.txt":   case "Tuesday":
+                return 2;
+            case "wednesday.txt": case "Wednesday":
+                return 3;
+            case "thursday.txt":  case "Thursday":
+                return 4;
+            case "friday.txt":    case "Friday":
+                return 5;
+            case "saturday.txt":  case "Saturday":
+                return 6;
+            default:
+                return 0;
         }
-        return 0;
     }
     
     public static void main(String[] args){
-        ScheduleModel boggs = new ScheduleModel();
-        boggs.populate("sunday.txt");
-        boggs.populate("monday.txt");
-        boggs.getSchedule().get(0).timeSlots.get(28).printTimeSlot();
     }
 }

@@ -1,12 +1,14 @@
 package poolschedulegui;
 
+import java.io.*;
+import java.util.Arrays;
+import java.util.List;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -18,13 +20,20 @@ public class PoolScheduleGUI extends Application {
     InteractionModel iModel;
     ScheduleView view;
     
+    private String[] dayss = {"Sunday","Monday","Tuesday","Wednesday",
+                                "Thursday","Friday","Saturday",};
+    List<String> days = Arrays.asList(dayss);
+    
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws FileNotFoundException {
+        
+        
         
         model = new ScheduleModel();
         model.populate("sunday.txt");
         model.populate("monday.txt");
         model.populate("tuesday.txt");
+        
         iModel = new InteractionModel();
         view = new ScheduleView();
         
@@ -41,13 +50,15 @@ public class PoolScheduleGUI extends Application {
         Label label1 = new Label();
         label1.setText("Choose day");
         
-        ChoiceBox<Integer> choiceBox = new ChoiceBox<>();
-        choiceBox.getItems().addAll(0,1,2,3,4,5,6);
-        choiceBox.setValue(0);
+        ChoiceBox<String> choiceBox = new ChoiceBox<>();
+        
+        
+        days.forEach(d ->{choiceBox.getItems().add(d);});
+        choiceBox.setValue("Sunday");
         
         cs.setOnMouseDragged(event->{
             int timeValue = (int)cs.getValue();
-            int day = choiceBox.getValue();
+            int day = ScheduleModel.stringToDay(choiceBox.getValue());
             iModel.setDay(day);
             iModel.setTime(timeValue);
         });
