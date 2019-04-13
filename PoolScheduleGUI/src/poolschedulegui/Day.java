@@ -8,7 +8,7 @@ package poolschedulegui;
 import java.util.ArrayList;
 
 /**
- *
+ * 
  * @author Alaric
  */
 public class Day {
@@ -27,6 +27,4 @@ public class Day {
     public void insert(Event e, int time){
         timeSlots.get(time).insert(e);
     }
-    
-    
 }
