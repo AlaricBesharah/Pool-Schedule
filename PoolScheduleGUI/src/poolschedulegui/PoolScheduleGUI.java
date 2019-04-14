@@ -9,9 +9,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 
 
 public class PoolScheduleGUI extends Application {
@@ -66,10 +68,18 @@ public class PoolScheduleGUI extends Application {
         Button btn = new Button();
         btn.setText("Update Display");
         
+        AnchorPane top = new AnchorPane();
+        AnchorPane.setRightAnchor(choiceBox, 50.0);
+        AnchorPane.setTopAnchor(choiceBox, 20.0);
+        AnchorPane.setRightAnchor(label1, 150.0);
+        AnchorPane.setTopAnchor(label1, 20.0);
+        
+        top.getChildren().addAll(label1, choiceBox);
+        
         VBox root = new VBox(20);
         root.setAlignment(Pos.CENTER);
         
-        root.getChildren().addAll(view, container, label1, choiceBox);
+        root.getChildren().addAll(top, view, container);
         
         Scene scene = new Scene(root, 800, 700);
         
