@@ -14,6 +14,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 
 public class PoolScheduleGUI extends Application {
@@ -26,10 +28,10 @@ public class PoolScheduleGUI extends Application {
                                 "Thursday","Friday","Saturday",};
     List<String> days = Arrays.asList(dayss);
     
+    ImageView iv = new ImageView(new Image(getClass().getResourceAsStream("/logo.png")));
+    
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
-        
-        
         
         model = new ScheduleModel();
         model.populate("sunday.txt");
@@ -68,20 +70,26 @@ public class PoolScheduleGUI extends Application {
         Button btn = new Button();
         btn.setText("Update Display");
         
-        AnchorPane top = new AnchorPane();
-        AnchorPane.setRightAnchor(choiceBox, 50.0);
-        AnchorPane.setTopAnchor(choiceBox, 20.0);
-        AnchorPane.setRightAnchor(label1, 150.0);
-        AnchorPane.setTopAnchor(label1, 20.0);
+        Pane pane = new Pane();
+        pane.getChildren().addAll(iv);
+        iv.setFitHeight(50);
+        iv.setFitWidth(100);
         
-        top.getChildren().addAll(label1, choiceBox);
+        AnchorPane top = new AnchorPane();
+        AnchorPane.setLeftAnchor(pane, 20.0);
+        AnchorPane.setRightAnchor(choiceBox, 20.0);
+        AnchorPane.setTopAnchor(choiceBox, 20.0);
+        AnchorPane.setRightAnchor(label1, 130.0);
+        AnchorPane.setTopAnchor(label1, 25.0);
+        
+        top.getChildren().addAll(pane, label1, choiceBox);
         
         VBox root = new VBox(20);
         root.setAlignment(Pos.CENTER);
         
         root.getChildren().addAll(top, view, container);
         
-        Scene scene = new Scene(root, 800, 700);
+        Scene scene = new Scene(root, 800, 750);
         
         primaryStage.setTitle("Pool Schedule");
         primaryStage.setScene(scene);

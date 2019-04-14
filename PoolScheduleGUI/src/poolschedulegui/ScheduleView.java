@@ -15,7 +15,7 @@ public class ScheduleView extends Pane implements ModelListener{
     private static Color[] colors;
     
     public ScheduleView(){
-        canvas = new Canvas(800, 600);
+        canvas = new Canvas(800, 500);
         gc = canvas.getGraphicsContext2D();
         getChildren().add(canvas);
         
@@ -36,10 +36,10 @@ public class ScheduleView extends Pane implements ModelListener{
     }
     
     public void draw(){
-        gc.clearRect(0, 0, 800, 600);
+        gc.clearRect(0, 0, 800, 500);
         
-        gc.setFill(Color.WHITE);
-        gc.fillRect(0, 0, 800, 600);
+        gc.setFill(Color.web("#f4f4f4"));
+        gc.fillRect(0, 0, 800, 500);
         
         for(int i = 0; i < 6; i++){
             int x = i * 100 + 100;

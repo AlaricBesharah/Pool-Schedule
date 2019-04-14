@@ -21,10 +21,10 @@ import javafx.scene.text.Font;
 public class CustomSlider extends Pane{
     private final double minimum;
     private final double maximum;
-    private double canvasWidth = 800;
+    private double canvasWidth = 650;
     private double canvasHeight = 60;
     private double nubSize = 18;
-    private double barWidth = canvasWidth - (nubSize/2);
+    private double barWidth = canvasWidth - (nubSize/2) - 100;
     
     // Defining a variable for the property 
     private final DoubleProperty myValue = new SimpleDoubleProperty();
