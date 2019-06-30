@@ -22,7 +22,7 @@ public class ScheduleView extends Pane implements ModelListener{
         colors = new Color[9];
         colors[0] = Color.rgb(50,161,252,0.9); // blue lane swimming rgb(50,161,252)
         colors[1] = Color.rgb(255,204,0,0.9); // orange fam swim rgb(255,204,0)
-        colors[2] = Color.rgb(255,66,94,0.9); // red aqaufit rgb(255,66,94)
+        colors[2] = Color.rgb(30,71,247,0.9); // red aqaufit rgb(255,66,94)
         colors[3] = Color.rgb(38,211,119,0.9); // green lesson  rgb(38,211,119)
         colors[4] = Color.rgb(193,61,237,0.9); // purple rental rgb(193,61,237)
     }

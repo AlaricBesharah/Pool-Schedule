@@ -6,7 +6,6 @@ import java.util.List;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -24,11 +23,11 @@ public class PoolScheduleGUI extends Application {
     InteractionModel iModel;
     ScheduleView view;
     
-    private String[] dayss = {"Sunday","Monday","Tuesday","Wednesday",
-                                "Thursday","Friday","Saturday",};
+    private final String[] dayss = {"Sunday","Monday","Tuesday","Wednesday",
+                              "Thursday","Friday","Saturday"};
     List<String> days = Arrays.asList(dayss);
     
-    ImageView iv = new ImageView(new Image(getClass().getResourceAsStream("/logo.png")));
+    ImageView iv = new ImageView(new Image(getClass().getResourceAsStream("/FakePool.png")));
     
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
@@ -37,6 +36,8 @@ public class PoolScheduleGUI extends Application {
         model.populate("sunday.txt");
         model.populate("monday.txt");
         model.populate("tuesday.txt");
+        model.populate("wednesday.txt");
+        model.populate("thursday.txt");
         
         iModel = new InteractionModel();
         view = new ScheduleView();
@@ -52,13 +53,12 @@ public class PoolScheduleGUI extends Application {
         container.getChildren().add(cs);
         
         Label label1 = new Label();
-        label1.setText("Choose day");
+        label1.setText("Choose day:");
         
         ChoiceBox<String> choiceBox = new ChoiceBox<>();
         
-        
         days.forEach(d ->{choiceBox.getItems().add(d);});
-        choiceBox.setValue("Sunday");
+        choiceBox.setValue(dayss[0]);
         
         cs.setOnMouseDragged(event->{
             int timeValue = (int)cs.getValue();
@@ -66,23 +66,19 @@ public class PoolScheduleGUI extends Application {
             iModel.setDay(day);
             iModel.setTime(timeValue);
         });
-
-        Button btn = new Button();
-        btn.setText("Update Display");
         
         Pane pane = new Pane();
         pane.getChildren().addAll(iv);
-        iv.setFitHeight(50);
-        iv.setFitWidth(100);
         
         AnchorPane top = new AnchorPane();
+        AnchorPane.setTopAnchor(pane, -55.0);
         AnchorPane.setLeftAnchor(pane, 20.0);
         AnchorPane.setRightAnchor(choiceBox, 20.0);
-        AnchorPane.setTopAnchor(choiceBox, 20.0);
+        AnchorPane.setTopAnchor(choiceBox, -25.0);
         AnchorPane.setRightAnchor(label1, 130.0);
-        AnchorPane.setTopAnchor(label1, 25.0);
+        AnchorPane.setTopAnchor(label1, -20.0);
         
-        top.getChildren().addAll(pane, label1, choiceBox);
+        top.getChildren().addAll( pane,label1, choiceBox);
         
         VBox root = new VBox(20);
         root.setAlignment(Pos.CENTER);
@@ -91,7 +87,8 @@ public class PoolScheduleGUI extends Application {
         
         Scene scene = new Scene(root, 800, 750);
         
-        primaryStage.setTitle("Pool Schedule");
+        primaryStage.setTitle("Interactive Pool Schedule");
+        primaryStage.getIcons().add(new Image("icon.png"));
         primaryStage.setScene(scene);
         primaryStage.show();
         
